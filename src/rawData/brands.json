@@ -1,0 +1,86 @@
+[
+  {
+    "image": "/images/brands/nike.svg",
+    "name": "Nike"
+  },
+  {
+    "image": "/images/brands/gucci.svg",
+    "name": "GUCCI"
+  },
+  {
+    "image": "/images/brands/adidas.svg",
+    "name": "Adidas"
+  },
+  {
+    "image": "/images/brands/chanel.svg",
+    "name": "Chanel"
+  },
+  {
+    "image": "/images/brands/zara.svg",
+    "name": "ZARA"
+  },
+  {
+    "image": "/images/brands/uniqlo.svg",
+    "name": "UNIQLO"
+  },
+  {
+    "image": "/images/brands/h-m.svg",
+    "name": "H&M"
+  },
+  {
+    "image": "/images/brands/cartier.svg",
+    "name": "Cartier"
+  },
+  {
+    "image": "/images/brands/hermes.svg",
+    "name": "Hermès"
+  },
+  {
+    "image": "/images/brands/rolex.svg",
+    "name": "Rolex"
+  },
+  {
+    "image": "/images/brands/dior.svg",
+    "name": "Dior"
+  },
+  {
+    "image": "/images/brands/coach.svg",
+    "name": "COACH"
+  },
+  {
+    "image": "/images/brands/the-north-face.svg",
+    "name": "The North Face"
+  },
+  {
+    "image": "/images/brands/victorias-secret.svg",
+    "name": "Victoria's Secret"
+  },
+  {
+    "image": "/images/brands/omega.svg",
+    "name": "Omega"
+  },
+  {
+    "image": "/images/brands/puma.svg",
+    "name": "Puma"
+  },
+  {
+    "image": "/images/brands/burberry.svg",
+    "name": "Burberry"
+  },
+  {
+    "image": "/images/brands/ralph-lauren.svg",
+    "name": "Ralph Lauren"
+  },
+  {
+    "image": "/images/brands/ray-ban.svg",
+    "name": "Ray-Ban"
+  },
+  {
+    "image": "/images/brands/levis.svg",
+    "name": "Levi's"
+  },
+  {
+    "image": "/images/brands/lululemon.svg",
+    "name": "Lululemon"
+  }
+]
