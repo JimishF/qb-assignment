@@ -7,9 +7,7 @@ import {
 } from "@material-ui/core";
 import React, { useMemo, useState } from "react";
 import brands from "../../rawData/brands.json";
-import { fakeUser } from "../../redux/models/User";
 import SearchBar from "../general/SearchBar";
-import Wrapper from "../general/Wrapper";
 import BrandCard from "./BrandCard";
 
 interface Props {}
@@ -35,7 +33,7 @@ const Brands: React.FC<Props> = (props) => {
     [searchValue]
   );
   return (
-    <Wrapper authUser={fakeUser}>
+    <>
       <SearchBar placeholder="Search Brands" onChange={handleSearchChange} />
 
       <Grid container spacing={2} className={classes.brandsContainer}>
@@ -53,7 +51,7 @@ const Brands: React.FC<Props> = (props) => {
           </Grid>
         ) : null}
       </Grid>
-    </Wrapper>
+    </>
   );
 };
 export default Brands;

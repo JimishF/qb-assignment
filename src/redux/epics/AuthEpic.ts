@@ -31,9 +31,9 @@ export const signinEpic: EpicType = (action$, store$) => (
   action$.pipe(
     filter(isActionOf(actions.signinAction)),
     switchMap((action) => {
-      return iif(() => action.payload.userType === UserTypes.Brand,
-        of(push('/brand/followers')),
-        of(push('/')),
+      return iif(() => action.payload.role === UserTypes.Brand,
+        of(push('/followers')),
+        of(push('/brands')),
       )
     })
   )
@@ -44,7 +44,7 @@ export const signupEpic: EpicType = (action$, store$) => (
   action$.pipe(
     filter(isActionOf(actions.signupAction)),
     switchMap((action) => {
-      return iif(() => action.payload.userType === UserTypes.Brand,
+      return iif(() => action.payload.role === UserTypes.Brand,
         of(brandSignupSuccessAction(action.payload)),
         of(userSignupSuccessAction(action.payload)),
       )
@@ -56,17 +56,17 @@ export const signupEpic: EpicType = (action$, store$) => (
 export const userSignupSuccessActionEpic: EpicType = (action$, store$) => (
   action$.pipe(
     filter(isActionOf(actions.userSignupSuccessAction)),
-    switchMap((action) => of(push('/brand/followers')))
+    switchMap((action) => of(push('/brands')))
   )
 )
 
 export const brandSignupSuccessActionEpic: EpicType = (action$, store$) => (
   action$.pipe(
-    filter(isActionOf(actions.userSignupSuccessAction)),
-    switchMap((action) => of(push('/')))
+    filter(isActionOf(actions.brandSignupSuccessAction)),
+    switchMap((action) => of(push('/followers')))
   )
 )
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default [userFetchEpic, signinEpic, brandSignupSuccessActionEpic, userSignupSuccessActionEpic];
+export default [userFetchEpic, signinEpic, signupEpic, brandSignupSuccessActionEpic, userSignupSuccessActionEpic];

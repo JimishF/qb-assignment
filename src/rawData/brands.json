@@ -1,127 +1,127 @@
 [
   {
     "id": "brand-nike",
-    "image": "/images/brands/nike.svg",
+    "avatar": "/images/brands/nike.svg",
     "name": "Nike",
     "credits": 100
   },
   {
     "id": "brand-gucci",
-    "image": "/images/brands/gucci.svg",
+    "avatar": "/images/brands/gucci.svg",
     "name": "GUCCI",
     "credits": 100
   },
   {
     "id": "brand-adidas",
-    "image": "/images/brands/adidas.svg",
+    "avatar": "/images/brands/adidas.svg",
     "name": "Adidas",
     "credits": 100
   },
   {
     "id": "brand-chanel",
-    "image": "/images/brands/chanel.svg",
+    "avatar": "/images/brands/chanel.svg",
     "name": "Chanel",
     "credits": 100
   },
   {
     "id": "brand-zara",
-    "image": "/images/brands/zara.svg",
+    "avatar": "/images/brands/zara.svg",
     "name": "ZARA",
     "credits": 100
   },
   {
     "id": "brand-uniqlo",
-    "image": "/images/brands/uniqlo.svg",
+    "avatar": "/images/brands/uniqlo.svg",
     "name": "UNIQLO",
     "credits": 100
   },
   {
     "id": "brand-hm",
-    "image": "/images/brands/hm.svg",
+    "avatar": "/images/brands/hm.svg",
     "name": "H&M",
     "credits": 100
   },
   {
     "id": "brand-cartier",
-    "image": "/images/brands/cartier.svg",
+    "avatar": "/images/brands/cartier.svg",
     "name": "Cartier",
     "credits": 100
   },
   {
     "id": "brand-hermes",
-    "image": "/images/brands/hermes.svg",
+    "avatar": "/images/brands/hermes.svg",
     "name": "Hermès",
     "credits": 100
   },
   {
     "id": "brand-rolex",
-    "image": "/images/brands/rolex.svg",
+    "avatar": "/images/brands/rolex.svg",
     "name": "Rolex",
     "credits": 100
   },
   {
     "id": "brand-dior",
-    "image": "/images/brands/dior.svg",
+    "avatar": "/images/brands/dior.svg",
     "name": "Dior",
     "credits": 100
   },
   {
     "id": "brand-coach",
-    "image": "/images/brands/coach.svg",
+    "avatar": "/images/brands/coach.svg",
     "name": "COACH",
     "credits": 100
   },
   {
     "id": "brand-the",
-    "image": "/images/brands/the-north-face.svg",
+    "avatar": "/images/brands/the-north-face.svg",
     "name": "The North, Face",
     "credits": 100
   },
   {
     "id": "brand-victorias",
-    "image": "/images/brands/victorias-secret.svg",
+    "avatar": "/images/brands/victorias-secret.svg",
     "name": "Victoria's, Secret",
     "credits": 100
   },
   {
     "id": "brand-omega",
-    "image": "/images/brands/omega.svg",
+    "avatar": "/images/brands/omega.svg",
     "name": "Omega",
     "credits": 100
   },
   {
     "id": "brand-puma",
-    "image": "/images/brands/puma.svg",
+    "avatar": "/images/brands/puma.svg",
     "name": "Puma",
     "credits": 100
   },
   {
     "id": "brand-burberry",
-    "image": "/images/brands/burberry.svg",
+    "avatar": "/images/brands/burberry.svg",
     "name": "Burberry",
     "credits": 100
   },
   {
     "id": "brand-ralph",
-    "image": "/images/brands/ralph-lauren.svg",
+    "avatar": "/images/brands/ralph-lauren.svg",
     "name": "Ralph Lauren",
     "credits": 100
   },
   {
     "id": "brand-ray",
-    "image": "/images/brands/ray-ban.svg",
+    "avatar": "/images/brands/ray-ban.svg",
     "name": "Ray-Ban",
     "credits": 100
   },
   {
     "id": "brand-levis",
-    "image": "/images/brands/levis.svg",
+    "avatar": "/images/brands/levis.svg",
     "name": "Levi's",
     "credits": 100
   },
   {
     "id": "brand-lululemon",
-    "image": "/images/brands/lululemon.svg",
+    "avatar": "/images/brands/lululemon.svg",
     "name": "Lululemon",
     "credits": 100
   }

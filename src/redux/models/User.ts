@@ -1,30 +1,30 @@
 export enum UserTypes {
-  Brand="Brand",
-  User="User",
+  Brand = "Brand",
+  User = "User",
+  Unavaliable = "Unavaliable",
 }
-
-export interface ClientData {
-  following: Pick<User, 'id' | 'name' | 'avatar'>[];
-  cerdits : number,
-}
-
-export interface BrandData {
-  followers: Pick<User, 'id' | 'name' | 'avatar'>[];
-  cerdits : number,
-}
-
-export interface User {
+export interface BaseUser {
   id: string,
-  name:string,
-  avatar?: string,
   email?: string,
   password?: string,
   role?: UserTypes,
+  avatar?: string,
 }
 
-export const fakeUser = { 
-  id:"111",
-  name: "Jimish",
+export interface User extends BaseUser {
+  firstName?: string,
+  lastName?: string,
+  followingBrands?: BrandUser[],
+}
+
+export interface BrandUser extends BaseUser {
+  name?: string,
+  symbol?: string,
+}
+export const fakeUser = {
+  id: "111",
+  firstName: "Jimish",
+  lastName: "Fotariya",
   role: UserTypes.User,
   avatar: "/avatar.svg"
 };

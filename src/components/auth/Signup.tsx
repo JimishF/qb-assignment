@@ -15,7 +15,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { signinAction } from "../../redux/actions";
+import { signupAction } from "../../redux/actions";
 import { UserTypes } from "../../redux/models/User";
 import { useDispatch } from "react-redux";
 
@@ -97,19 +97,19 @@ export default function Signup() {
         ...payload,
         firstName: event?.target?.elements.firstName.value,
         lastName: event?.target?.elements.lastName.value,
-        userType: UserTypes.User,
+        role: UserTypes.User,
       };
     } else {
       payload = {
         ...payload,
-        userType: UserTypes.Brand,
+        role: UserTypes.Brand,
         brandName: event?.target?.elements.brandName.value,
         brandSymbol: event?.target?.elements.brandSymbol.value,
         brandLogo: logo,
       };
     }
 
-    dispatch(signinAction(payload));
+    dispatch(signupAction(payload));
   };
   return (
     <Grid container component="main" className={classes.root}>

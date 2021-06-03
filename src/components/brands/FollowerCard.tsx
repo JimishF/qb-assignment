@@ -7,13 +7,12 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  SvgIcon,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import React from "react";
 import { User } from "../../redux/models/User";
-import { ReactComponent as CoinIcon } from "../../icons/coin.svg";
-
+import CoinSvgIcon from "../general/CoinSvgIcon";
+import IconTypography from '../general/IconTypography';
 interface Props {
   user: User;
   selected: boolean;
@@ -58,16 +57,7 @@ const useStyles = makeStyles<Theme, Partial<Props>>((theme: Theme) =>
     },
     sectionTitle: {
       marginTop: theme.spacing(6),
-    },
-    wrapIcon: {
-      verticalAlign: "middle",
-      display: "inline-flex",
-    },
-    coinSvg: {
-      height: 28,
-      width: 28,
-      marginLeft: theme.spacing(1),
-    },
+    }
   })
 );
 const FollowerCard: React.FC<Props> = ({
@@ -82,7 +72,7 @@ const FollowerCard: React.FC<Props> = ({
     onCheckChanged && onCheckChanged(!selected);
   };
   return (
-    <Card onClick={handleCardClick} className={classes.userCard}>
+  <Card onClick={handleCardClick} className={classes.userCard}>
       <CardContent>
         <Box
           display="flex"
@@ -91,23 +81,17 @@ const FollowerCard: React.FC<Props> = ({
           alignItems="center"
         >
           <div className={classes.userImage}>
-            <img src={user.avatar} alt={user.name} />
+            <img src={user.avatar} alt={user.firstName} />
           </div>
           <Typography gutterBottom className={classes.userName}>
-            {user.name}
+            {`${user.firstName} ${user.lastName}`}
           </Typography>
-
-          <Typography variant="subtitle1" className={classes.wrapIcon}>
+          <IconTypography variant="subtitle1" startIcon={<CoinSvgIcon />}>
             3000
-            <SvgIcon
-              component={CoinIcon}
-              className={classes.coinSvg}
-              viewBox="0 0 350 350"
-            />
-          </Typography>
-        </Box>
-      </CardContent>
-      <CardActions>
+          </IconTypography>
+
+      </Box>
+    </CardContent><CardActions>
         <Button
           fullWidth
           onClick={(event) => event.stopPropagation()}

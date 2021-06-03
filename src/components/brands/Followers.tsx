@@ -1,13 +1,19 @@
 import {
-  Box, Button,
-  Collapse, createStyles,
-  Grid, Icon,
-  IconButton, makeStyles, SvgIcon, Theme, Typography
+  Box,
+  Button,
+  Collapse,
+  createStyles,
+  Grid,
+  Snackbar,
+  Icon,
+  IconButton,
+  makeStyles,
+  Theme,
+  Typography,
 } from "@material-ui/core";
 import React, { useMemo, useState } from "react";
-import { ReactComponent as CoinIcon } from "../../icons/coin.svg";
 import { fakeUser, User } from "../../redux/models/User";
-import Wrapper from "../general/Wrapper";
+import CoinSvgIcon from "../general/CoinSvgIcon";
 import AwardDialog from "./AwardDialog";
 import FollowerCard from "./FollowerCard";
 
@@ -34,7 +40,18 @@ const Followers: React.FC<Props> = (props) => {
     number[]
   >([]);
   const [open, setOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(true);
 
+  const handleClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
   const handleSelect = (index: number) => (value: boolean) => {
     setSelectedFollowersIndexes((sf: number[]) => {
       if (!value) {
@@ -52,17 +69,11 @@ const Followers: React.FC<Props> = (props) => {
       selectedFollowersIndexes.includes(index)
     );
   }, [followers, selectedFollowersIndexes]);
-  const credits = 500;
   return (
-    <Wrapper authUser={fakeUser}>
+    <>
       <Box display="flex" justifyContent="space-between">
         <Typography variant="h6">Followers</Typography>
-        <Button
-          size="large"
-          startIcon={<SvgIcon component={CoinIcon} viewBox="0 0 350 350" />}
-        >
-          {credits} Credits
-        </Button>
+      
       </Box>
       <Collapse in={!!selectedFollowersIndexes.length}>
         <Button variant="outlined" onClick={() => setOpen(true)}>
@@ -72,7 +83,6 @@ const Followers: React.FC<Props> = (props) => {
           <Icon>clear</Icon>
         </IconButton>
       </Collapse>
-
       <Grid container spacing={2} className={classes.usersContainer}>
         {followers.map((user, index) => (
           <Grid item xs={12} md={4} key={index}>
@@ -92,12 +102,28 @@ const Followers: React.FC<Props> = (props) => {
           </Grid>
         ) : null}
       </Grid>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Select multiple Users to award in Bulk!"
+        action={
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <Icon>close</Icon>
+            </IconButton>
+        }
+      />
       <AwardDialog
         selectedUsers={selectedFollowers}
         open={open}
         onClose={() => setOpen(false)}
       />
-    </Wrapper>
+    </>
   );
 };
 export default Followers;

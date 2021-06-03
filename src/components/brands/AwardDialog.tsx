@@ -42,7 +42,7 @@ const AwardDialog: React.FC<Props> = ({
       <DialogTitle>
         Award Loyalty Points
         <span>
-          {selectedUsers.length > 1 ? ` (${selectedUsers.length} Users)` : ` to ${selectedUsers[0]?.name}`}
+          {selectedUsers.length > 1 ? ` (${selectedUsers.length} Users)` : ` to ${selectedUsers[0]?.firstName} ${selectedUsers[0]?.lastName} `}
         </span>
       </DialogTitle>
       <DialogContent>

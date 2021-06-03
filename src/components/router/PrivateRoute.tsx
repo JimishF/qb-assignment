@@ -1,7 +1,7 @@
-import React, { Component, ReactElement } from "react";
-import { useSelector } from "react-redux";
-import { Route, Redirect, RouteProps } from "react-router-dom";
-import { fakeUser, User, UserTypes } from "../../redux/models/User";
+import React, { ReactElement } from "react";
+import { Redirect, Route, RouteProps } from "react-router-dom";
+import { useAuthUser } from "../../hooks/useAuthUser";
+import { UserTypes } from "../../redux/models/User";
 import Wrapper from "../general/Wrapper";
 
 interface PrivateRouteProps extends RouteProps {
@@ -10,11 +10,13 @@ interface PrivateRouteProps extends RouteProps {
 
 function PrivateRoute({
   roles,
+  component: Component,
   ...routeProps
 }: PrivateRouteProps): ReactElement {
-//   const currentUser = useSelector(authUser);
-  const currentUser =  fakeUser;
-
+  //   const currentUser = useSelector(authUser);
+  const currentUser = useAuthUser();
+  const authUserRole = currentUser?.role ?? UserTypes.Unavaliable;
+  console.log(authUserRole);
   return (
     <Route
       {...routeProps}
@@ -22,22 +24,15 @@ function PrivateRoute({
         if (!currentUser) {
           return (
             <Redirect
-              to={{ pathname: "/login", state: { from: props.location } }}
+              to={{ pathname: "/signin", state: { from: props.location } }}
             />
           );
-        }
-
-        // role auth
-        if (roles && roles.indexOf(currentUser?.role) === -1) {
-          return <Redirect to={{ pathname: "/" }} />;
+        } else if (currentUser && roles && roles.indexOf(authUserRole) === -1) {
+          return <Redirect to={{ pathname: "/signin" }} />;
         }
 
         // component with wrapper
-        return (
-          <Wrapper authUser={currentUser as User}>
-            <Component {...props} />
-          </Wrapper>
-        );
+        return <Wrapper>{Component ? <Component {...props} /> : null}</Wrapper>;
       }}
     />
   );
