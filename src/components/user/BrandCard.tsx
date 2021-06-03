@@ -78,7 +78,7 @@ const BrandCard = ({ brand }: Props) => {
   const classes = useStyles();
   const history = useHistory();
   const handleRedirect = () => {
-    history.push(`/brand/${brand.symbol}`);
+    history.push(`/brand/${brand.id}`);
   };
   const handleFollow = (event: React.MouseEvent<HTMLElement>) => {
     event?.stopPropagation();

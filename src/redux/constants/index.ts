@@ -6,3 +6,6 @@ export const USER_SET = "@@user/SET";
 export const USER_ERROR = "@@user/ERROR";
 export const USER_FETCH = "@@user/FETCH";
 export const SIGNIN = "@@auth/SIGNIN"
+export const SIGNUP = "@@auth/SIGNUP"
+export const BRAND_SIGNUP_SUCCESS = "@@auth/SIGNUP_SUCCESS/BRAND"
+export const USER_SIGNUP_SUCCESS = "@@auth/SIGNUP_SUCCESS/USER"

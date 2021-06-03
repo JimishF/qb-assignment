@@ -25,7 +25,7 @@ interface SelectableUser extends User {
 }
 const Followers: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const [followers, setFollowers] = useState<SelectableUser[]>([
+  const [followers] = useState<SelectableUser[]>([
     { ...fakeUser },
     { ...fakeUser },
   ]);
