@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useSelector } from 'react-redux'
-import { usersSelector } from '../redux/store/selectors'
+import { usersSelector } from '../redux/selectors'
 
 function UserList(): ReactElement {
     const user = useSelector( usersSelector )

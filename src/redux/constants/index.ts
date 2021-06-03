@@ -5,3 +5,4 @@ export const USER_GET = "@@user/GET";
 export const USER_SET = "@@user/SET";
 export const USER_ERROR = "@@user/ERROR";
 export const USER_FETCH = "@@user/FETCH";
+export const SIGNIN = "@@auth/SIGNIN"

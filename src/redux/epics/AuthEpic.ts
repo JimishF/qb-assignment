@@ -1,10 +1,12 @@
+import { push } from 'connected-react-router';
 import { Epic } from "redux-observable";
-import { from, of } from "rxjs";
+import { from, iif, of } from "rxjs";
 import { filter, switchMap } from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
 import { actions, ActionsType } from "..";
-import * as API from "../../services/Api";
+import { UserTypes } from '../models/User';
 import { RootState } from "../reducers";
+import * as API from "../services/Api";
 
 export const userFetchEpic: Epic<
   ActionsType,
@@ -23,5 +25,23 @@ export const userFetchEpic: Epic<
   )
 )
 
+export const signinEpic: Epic<
+  ActionsType,
+  ActionsType,
+  RootState,
+  typeof API
+> = (action$, store$, { getUsers }) => (
+  action$.pipe(
+    filter(isActionOf(actions.signinAction)),
+    switchMap((action) => {
+      return iif(() => action.payload.userType === UserTypes.Brand,
+        of(push('/brand/followers')),
+        of(push('/')),
+      )
+    })
+  )
+)
+
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default [userFetchEpic];
+export default [userFetchEpic, signinEpic];

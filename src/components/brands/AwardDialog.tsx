@@ -42,18 +42,14 @@ const AwardDialog: React.FC<Props> = ({
       <DialogTitle>
         Award Loyalty Points
         <span>
-          {selectedUsers.length > 1 ? ` (${selectedUsers.length} Users)` : null}
+          {selectedUsers.length > 1 ? ` (${selectedUsers.length} Users)` : ` to ${selectedUsers[0]?.name}`}
         </span>
       </DialogTitle>
       <DialogContent>
         <AvatarGroup max={5}>
           {selectedUsers &&
             selectedUsers.map((user, index) => (
-              <Avatar
-                key={index}
-                alt="User"
-                src={`https://i.pravatar.cc/50?${index}`}
-              />
+              <Avatar key={index} alt="User" src={user.avatar}  />
             ))}
         </AvatarGroup>
         <Box my={2}>

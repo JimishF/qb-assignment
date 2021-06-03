@@ -1,22 +1,15 @@
 import {
-  createStyles,
-  Grid,
-  makeStyles,
-  Theme,
-  Box,
-  Typography,
-  SvgIcon,
-  Button,
-  Collapse,
-  Icon,
-  IconButton,
+  Box, Button,
+  Collapse, createStyles,
+  Grid, Icon,
+  IconButton, makeStyles, SvgIcon, Theme, Typography
 } from "@material-ui/core";
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
+import { ReactComponent as CoinIcon } from "../../icons/coin.svg";
 import { fakeUser, User } from "../../redux/models/User";
 import Wrapper from "../general/Wrapper";
-import FollowerCard from "./FollowerCard";
-import { ReactComponent as CoinIcon } from "../../icons/coin.svg";
 import AwardDialog from "./AwardDialog";
+import FollowerCard from "./FollowerCard";
 
 interface Props {}
 

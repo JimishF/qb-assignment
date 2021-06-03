@@ -12,6 +12,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
+import { signinAction } from "../../redux/actions";
+import { UserTypes } from "../../redux/models/User";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,20 +37,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function Signn() {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const handleSignin = (event: any) => {
+    event?.stopPropagation();
+    event?.preventDefault();
+    const email = event?.target?.elements.email.value;
+    const password = event?.target?.elements.password.value;
+    dispatch(
+      signinAction({
+        email,
+        password,
+        userType: UserTypes.Brand,
+      })
+    );
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-            <Icon>lock</Icon>
+          <Icon>lock</Icon>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSignin} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -89,7 +106,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link component={RouterLink} to="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
