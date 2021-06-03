@@ -3,10 +3,12 @@ import {
   createStyles,
   Icon,
   makeStyles,
-  Theme
+  Theme,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { useAuthUser } from "../../hooks/useAuthUser";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { followBrand, unfollowBrand } from "../../redux/actions";
+import { isFollowingBrand } from "../../redux/selectors";
 
 interface Props {
   brand: any;
@@ -21,16 +23,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FollowButton = (props: Props) => {
-  const user = useAuthUser();
-  
+const FollowButton = ({ brand }: Props) => {
+  const dispatch = useDispatch();
   const handleFollow = (event: React.MouseEvent<HTMLElement>) => {
     event?.stopPropagation();
-    setFollowing((f) => !f);
+    if (following) {
+      dispatch(unfollowBrand(brand));
+    } else {
+      dispatch(followBrand(brand));
+    }
   };
-
-  const [following, setFollowing] = useState(false);
+  const following = useSelector(isFollowingBrand(brand.id));
   const classes = useStyles();
+
   return (
     <Button
       fullWidth

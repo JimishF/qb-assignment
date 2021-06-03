@@ -105,6 +105,7 @@ export default function Signup() {
         role: UserTypes.Brand,
         brandName: event?.target?.elements.brandName.value,
         brandSymbol: event?.target?.elements.brandSymbol.value,
+        maxPoints: parseInt(event?.target?.elements.maxPoints.value),
         brandLogo: logo,
       };
     }
@@ -230,6 +231,21 @@ export default function Signup() {
                         </>
                       )}
                     </Box>
+                  </Grid>
+                  <Grid item xs={12} >
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      type="number"
+                      InputProps={{ inputProps: { min: 0, max: 500 } }}
+                      id="maxPoints"
+                      label="Max Loyalty points"
+                      name="maxPoints"
+                      autoComplete="brand-name"
+                      autoFocus
+                    />
                   </Grid>
                 </>
               )}

@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { User } from "../models/User";
+import { BrandUser, User } from "../models/User";
 import {
   SIGNIN,
   USER_ERROR,
@@ -7,8 +7,11 @@ import {
   BRAND_SIGNUP_SUCCESS,
   USER_SIGNUP_SUCCESS,
   SIGNUP,
+  UNFOLLOW_BRAND,
   BRANDS_GET,
-  USER_SET
+  FOLLOW_BRAND,
+  USER_SET,
+  REWARD_USERS,
 } from "../constants";
 
 export const userGetAction = createAction(USER_GET)();
@@ -21,7 +24,11 @@ export const signupAction = createAction(SIGNUP, (credentials: any) => credentia
 export const brandSignupSuccessAction = createAction(BRAND_SIGNUP_SUCCESS, (credentials: any) => credentials)();
 export const userSignupSuccessAction = createAction(USER_SIGNUP_SUCCESS, (credentials: any) => credentials)();
 
+export const followBrand = createAction(FOLLOW_BRAND, (brand: BrandUser) => brand)();
+export const unfollowBrand = createAction(UNFOLLOW_BRAND, (brand: BrandUser) => brand)();
 export const userErrorAction = createAction(
   USER_ERROR, (error: Error) => error
 )();
+
+export const rewardUsers = createAction(REWARD_USERS, (users: User[], points: number) => ({users, points}))();
 

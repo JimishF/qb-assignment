@@ -1,0 +1,42 @@
+[
+  {
+    "id": "111",
+    "firstName": "Jimish",
+    "lastName": "Fotariya",
+    "role": "User",
+    "avatar": "/images/users/1.jpeg",
+    "credits": 0
+  },
+  {
+    "id": "222",
+    "firstName": "John",
+    "lastName": "Doe",
+    "role": "User",
+    "avatar": "/images/users/2.jpeg",
+    "credits": 0
+  },
+  {
+    "id": "333",
+    "firstName": "Alice",
+    "lastName": "Worderland",
+    "role": "User",
+    "avatar": "/images/users/3.jpeg",
+    "credits": 0
+  },
+  {
+    "id": "444",
+    "firstName": "Bob",
+    "lastName": "Builder",
+    "role": "User",
+    "avatar": "/images/users/4.jpeg",
+    "credits": 0
+  },
+  {
+    "id": "555",
+    "firstName": "John",
+    "lastName": "Papa",
+    "role": "User",
+    "avatar": "/images/users/5.jpeg",
+    "credits": 0
+  }
+]

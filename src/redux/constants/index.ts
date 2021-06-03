@@ -10,3 +10,7 @@ export const SIGNUP = "@@auth/SIGNUP"
 export const BRAND_SIGNUP_SUCCESS = "@@auth/SIGNUP_SUCCESS/BRAND"
 export const USER_SIGNUP_SUCCESS = "@@auth/SIGNUP_SUCCESS/USER"
 export const BRANDS_GET = "@@brands/GET"
+export const FOLLOW_BRAND = "@@brands/FOLLOW"
+export const UNFOLLOW_BRAND = "@@brands/UNFOLLOW"
+export const REWARD_USERS = "@@brands/REWARD_USERS"
+

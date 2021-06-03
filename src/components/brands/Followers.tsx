@@ -4,20 +4,23 @@ import {
   Collapse,
   createStyles,
   Grid,
-  Snackbar,
   Icon,
   IconButton,
   makeStyles,
+  Snackbar,
   Theme,
   Typography,
 } from "@material-ui/core";
 import React, { useMemo, useState } from "react";
-import { fakeUser, User } from "../../redux/models/User";
-import CoinSvgIcon from "../general/CoinSvgIcon";
+import { useSelector } from "react-redux";
+import { User } from "../../redux/models/User";
+import { brandFollowersSelector } from "../../redux/selectors/index";
 import AwardDialog from "./AwardDialog";
 import FollowerCard from "./FollowerCard";
 
-interface Props {}
+interface Props {
+  selected?: boolean;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,21 +29,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-interface SelectableUser extends User {
-  selected?: boolean;
-}
+
 const Followers: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const [followers] = useState<SelectableUser[]>([
-    { ...fakeUser },
-    { ...fakeUser },
-  ]);
-
-  const [selectedFollowersIndexes, setSelectedFollowersIndexes] = useState<
-    number[]
-  >([]);
+  const followers = useSelector(brandFollowersSelector);
+  const [selectedFollowersIds, setSelectedFollowersIds] = useState<string[]>(
+    []
+  );
   const [open, setOpen] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = React.useState(true);
+  const [snackbarOpen, setSnackbarOpen] = useState(true);
+  const [snackbarText, setSnackbartext] = useState(
+    "Select multiple Users to award in Bulk!"
+  );
 
   const handleClose = (
     event: React.SyntheticEvent | React.MouseEvent,
@@ -49,35 +49,44 @@ const Followers: React.FC<Props> = (props) => {
     if (reason === "clickaway") {
       return;
     }
-
     setSnackbarOpen(false);
   };
-  const handleSelect = (index: number) => (value: boolean) => {
-    setSelectedFollowersIndexes((sf: number[]) => {
+  const handleSelect = (id: string) => (value: boolean) => {
+    setSelectedFollowersIds((sf: string[]) => {
       if (!value) {
-        return sf.filter((value) => value !== index);
+        return sf.filter((value) => value !== id);
       } else {
-        return [...sf, index];
+        return [...sf, id];
       }
     });
   };
   const clearSelection = () => {
-    setSelectedFollowersIndexes([]);
+    setSelectedFollowersIds([]);
+  };
+  const handleFollowerAwardClick = (user: User) => {
+    setSelectedFollowersIds([user.id]);
+    setOpen(true);
   };
   const selectedFollowers = useMemo(() => {
-    return followers.filter((_, index) =>
-      selectedFollowersIndexes.includes(index)
+    return followers.filter((user: User, index) =>
+      selectedFollowersIds.includes(user.id)
     );
-  }, [followers, selectedFollowersIndexes]);
+  }, [followers, selectedFollowersIds]);
+  const handleAwardClose = (event:any, reason:string) => {
+    if( reason && reason.includes("users rewarded") ){
+      setSnackbartext(reason);
+      setSnackbarOpen(true);
+    }
+    setOpen(false);
+  };
   return (
     <>
       <Box display="flex" justifyContent="space-between">
         <Typography variant="h6">Followers</Typography>
-      
       </Box>
-      <Collapse in={!!selectedFollowersIndexes.length}>
+      <Collapse in={!!selectedFollowersIds.length}>
         <Button variant="outlined" onClick={() => setOpen(true)}>
-          Award Loyalty Points ({selectedFollowersIndexes.length} Users)
+          Award Loyalty Points ({selectedFollowersIds.length} Users)
         </Button>
         <IconButton onClick={clearSelection}>
           <Icon>clear</Icon>
@@ -85,10 +94,11 @@ const Followers: React.FC<Props> = (props) => {
       </Collapse>
       <Grid container spacing={2} className={classes.usersContainer}>
         {followers.map((user, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          <Grid item xs={12} md={4} key={user.id}>
             <FollowerCard
-              onCheckChanged={handleSelect(index)}
-              selected={selectedFollowersIndexes.includes(index)}
+              onAwardClick={handleFollowerAwardClick}
+              onCheckChanged={handleSelect(user.id)}
+              selected={selectedFollowersIds.includes(user.id)}
               user={user}
             />
           </Grid>
@@ -106,22 +116,22 @@ const Followers: React.FC<Props> = (props) => {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="Select multiple Users to award in Bulk!"
+        message={snackbarText}
         action={
-            <IconButton
-              size="small"
-              aria-label="close"
-              color="inherit"
-              onClick={handleClose}
-            >
-              <Icon>close</Icon>
-            </IconButton>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <Icon>close</Icon>
+          </IconButton>
         }
       />
       <AwardDialog
         selectedUsers={selectedFollowers}
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleAwardClose}
       />
     </>
   );

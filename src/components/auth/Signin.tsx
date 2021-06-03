@@ -49,7 +49,7 @@ export default function Signn() {
       signinAction({
         email,
         password,
-        role: UserTypes.Brand,
+        role: UserTypes.User,
       })
     );
   };

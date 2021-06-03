@@ -1,17 +1,20 @@
-import React, { useState } from "react";
 import {
-  Dialog,
   Avatar,
   Box,
-  DialogTitle,
-  DialogContent,
-  Typography,
-  Slider,
-  DialogActions,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Slider,
+  Typography,
 } from "@material-ui/core";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
-import { User } from "../../redux/models/User";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useAuthUser } from "../../hooks/useAuthUser";
+import { BrandUser, User } from "../../redux/models/User";
+import {rewardUsers} from '../../redux/actions/index';
 
 interface Props {
   selectedUsers: User[];
@@ -24,32 +27,38 @@ const AwardDialog: React.FC<Props> = ({
   open,
   onClose,
 }: Props) => {
-  const max = 30;
-  const [points, setPoints] = useState<number | number[]>(max);
+  const user: BrandUser = useAuthUser();
+
+  const max = user?.maxPoints ?? 100;
+
+  const [points, setPoints] = useState<number | number[]>(0);
+  const dispatch = useDispatch();
   const handleSliderChange = (event: any, newValue: number | number[]) => {
     setPoints(newValue);
   };
   const rewardPoints = (event: any) => {
-    // TODO: award points to selected users
-    handleClose();
+    dispatch(rewardUsers(selectedUsers, points as number));
+    handleClose(event, `${selectedUsers.length} users rewarded ${points}!`);
   };
 
-  const handleClose = (event?: any) => {
-    onClose(event, "close");
+  const handleClose = (event?: any, reason?:string) => {
+    onClose(event, reason || "close");
   };
   return (
     <Dialog maxWidth="md" open={open} onClose={onClose}>
       <DialogTitle>
         Award Loyalty Points
         <span>
-          {selectedUsers.length > 1 ? ` (${selectedUsers.length} Users)` : ` to ${selectedUsers[0]?.firstName} ${selectedUsers[0]?.lastName} `}
+          {selectedUsers.length > 1
+            ? ` (${selectedUsers.length} Users)`
+            : ` to ${selectedUsers[0]?.firstName} ${selectedUsers[0]?.lastName} `}
         </span>
       </DialogTitle>
       <DialogContent>
         <AvatarGroup max={5}>
           {selectedUsers &&
             selectedUsers.map((user, index) => (
-              <Avatar key={index} alt="User" src={user.avatar}  />
+              <Avatar key={index} alt="User" src={user.avatar} />
             ))}
         </AvatarGroup>
         <Box my={2}>

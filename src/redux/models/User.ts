@@ -14,13 +14,17 @@ export interface BaseUser {
 export interface User extends BaseUser {
   firstName?: string,
   lastName?: string,
+  credits?:number,
   followingBrands?: BrandUser[],
 }
 
 export interface BrandUser extends BaseUser {
   name?: string,
   symbol?: string,
+  followers?: User[] 
+  maxPoints?: number, 
 }
+
 export const fakeUser = {
   id: "111",
   firstName: "Jimish",

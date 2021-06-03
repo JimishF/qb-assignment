@@ -7,16 +7,17 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import React from "react";
 import { User } from "../../redux/models/User";
 import CoinSvgIcon from "../general/CoinSvgIcon";
-import IconTypography from '../general/IconTypography';
+import IconTypography from "../general/IconTypography";
 interface Props {
   user: User;
   selected: boolean;
   onCheckChanged?: Function;
+  onAwardClick?: Function;
 }
 
 const useStyles = makeStyles<Theme, Partial<Props>>((theme: Theme) =>
@@ -57,13 +58,14 @@ const useStyles = makeStyles<Theme, Partial<Props>>((theme: Theme) =>
     },
     sectionTitle: {
       marginTop: theme.spacing(6),
-    }
+    },
   })
 );
 const FollowerCard: React.FC<Props> = ({
   user,
   selected,
   onCheckChanged,
+  onAwardClick,
 }: Props) => {
   const classes = useStyles({ selected });
   const handleCardClick = (
@@ -71,8 +73,12 @@ const FollowerCard: React.FC<Props> = ({
   ) => {
     onCheckChanged && onCheckChanged(!selected);
   };
+  const handleAwardClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    onAwardClick && onAwardClick(user);
+  };
   return (
-  <Card onClick={handleCardClick} className={classes.userCard}>
+    <Card onClick={handleCardClick} className={classes.userCard}>
       <CardContent>
         <Box
           display="flex"
@@ -87,14 +93,14 @@ const FollowerCard: React.FC<Props> = ({
             {`${user.firstName} ${user.lastName}`}
           </Typography>
           <IconTypography variant="subtitle1" startIcon={<CoinSvgIcon />}>
-            3000
+            {user.credits}
           </IconTypography>
-
-      </Box>
-    </CardContent><CardActions>
+        </Box>
+      </CardContent>
+      <CardActions>
         <Button
           fullWidth
-          onClick={(event) => event.stopPropagation()}
+          onClick={handleAwardClick}
           variant="contained"
           type="submit"
           color="primary"
