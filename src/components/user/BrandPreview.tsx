@@ -5,7 +5,7 @@ import {
   CardMedia,
   makeStyles,
   Theme,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -80,10 +80,25 @@ const BrandPreview = (props: Props) => {
               {brand?.name}
             </Typography>
           </Box>
-          <Box justifySelf="flex-end">
-            <FollowButton brand={brand} />
-          </Box>
+          
+          {user.role !== UserTypes.Brand ? (
+            <Box justifySelf="flex-end">
+              <FollowButton brand={brand} />
+            </Box>
+          ) : null}
         </Box>
+      </CardContent>
+
+      <CardContent>
+        <Typography>
+          {brand?.name} is a Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Sunt exercitationem voluptates accusamus iste architecto nihil
+          quam eligendi, ipsum obcaecati modi ab dolor qui explicabo nulla ut
+          saepe tenetur quasi deleniti. Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Suscipit odit error nobis iusto totam laborum, omnis
+          perspiciatis natus consequatur enim eaque repellendus ipsum
+          temporibus! Voluptatibus quas quisquam dolor in accusantium!
+        </Typography>
       </CardContent>
     </Card>
   );
