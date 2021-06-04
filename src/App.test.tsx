@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import { store } from './redux';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(
+test('renders Signin page', () => {
+  const { getByLabelText } = render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  expect(getByText(/Hello World/i)).toBeInTheDocument();
+  expect(getByLabelText(/Email Address/i)).toBeInTheDocument();
 });
