@@ -5,11 +5,13 @@ import {
   CardMedia,
   makeStyles,
   Theme,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { useAuthUser } from "../../hooks/useAuthUser";
+import { UserTypes } from "../../redux/models/User";
 import { brandSelector } from "../../redux/selectors/index";
 import FollowButton from "./FollowButton";
 interface Props {}
@@ -49,11 +51,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 const BrandPreview = (props: Props) => {
   const classes = useStyles();
+  const user = useAuthUser();
   const { id } = useParams<any>();
   const history = useHistory();
-  const brand = useSelector(brandSelector(id));
+  let brand = useSelector(brandSelector(id));
   if (!brand) {
-    history.replace("/404");
+    if (user && user.role === UserTypes.Brand) {
+      brand = user;
+    } else {
+      history.replace("/404");
+    }
   }
 
   return (

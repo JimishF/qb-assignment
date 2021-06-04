@@ -33,7 +33,7 @@ function App() {
           component={Brands}
         />
         <PrivateRoute
-          roles={[UserTypes.User]}
+          roles={[UserTypes.User, UserTypes.Brand]}
           path="/brand/:id"
           component={BrandPreview}
         />

@@ -16,7 +16,6 @@ function PrivateRoute({
   //   const currentUser = useSelector(authUser);
   const currentUser = useAuthUser();
   const authUserRole = currentUser?.role ?? UserTypes.Unavaliable;
-  console.log(authUserRole);
   return (
     <Route
       {...routeProps}

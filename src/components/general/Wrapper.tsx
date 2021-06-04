@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Avatar,
   Box,
   Container,
   CssBaseline,
@@ -11,11 +12,15 @@ import {
   Tab,
   Tabs,
   Theme,
+  Toolbar,
   Tooltip,
+  Typography,
 } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { useAuthUser } from "../../hooks/useAuthUser";
+import { UserTypes } from "../../redux/models/User";
 import CoinSvgIcon from "../general/CoinSvgIcon";
 import IconTypography from "../general/IconTypography";
 
@@ -31,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       marginTop: "5.5em",
     },
+    avatar: {
+      marginRight: theme.spacing(2),
+    },
     credits: {
       marginRight: theme.spacing(2),
     },
@@ -40,11 +48,12 @@ const Wrapper: React.FC = ({ children }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const history = useHistory();
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
-  };
+  const location = useLocation();
+  const user = useAuthUser();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -56,6 +65,18 @@ const Wrapper: React.FC = ({ children }) => {
     history.push("/signin");
   };
 
+  const userName = user.role === UserTypes.Brand ? user.name : user.firstName;
+ 
+ 
+  // Routing patch
+  const URLS = ["/followers", `/brand/${user.id}`];
+  const handleTabChange = (event: React.ChangeEvent<any>, newValue: any) => {
+    user.role === UserTypes.Brand && history.push(URLS[newValue] ?? "/followers");
+  };
+  useEffect(() => {
+    setValue(value !== 1 && location.pathname === `/brand/${user.id}` ? 1 : 0);
+  }, [location, setValue]);
+
   return (
     <div>
       <div className={classes.root}>
@@ -63,7 +84,12 @@ const Wrapper: React.FC = ({ children }) => {
         <AppBar position="fixed" color="inherit" className={classes.appBar}>
           <Box display="flex" justifyContent="space-between">
             <Hidden smDown>
-              <Box flex={1}> </Box>
+              <Box flex={1}>
+                <Toolbar variant="dense">
+                  <Avatar src={user.avatar} className={classes.avatar} />
+                  <Typography color="inherit">Welcome {userName}!</Typography>
+                </Toolbar>
+              </Box>
             </Hidden>
             <Box flex={2}>
               <Tabs
@@ -74,14 +100,15 @@ const Wrapper: React.FC = ({ children }) => {
                 indicatorColor="primary"
               >
                 <Tooltip title="Home">
-                  <Tab icon={<Icon>home</Icon>} />
+                  <Tab value={0} icon={<Icon>home</Icon>} />
                 </Tooltip>
-                <Tooltip title="Brands">
-                  <Tab icon={<Icon>shopping_bag</Icon>} />
-                </Tooltip>
-                <Tooltip title="Following">
-                  <Tab icon={<Icon>storefront</Icon>} />
-                </Tooltip>
+                {user.role === UserTypes.Brand ? (
+                  <Tooltip title="My Profile">
+                    <Tab value={1} icon={<Icon>store_front</Icon>} />
+                  </Tooltip>
+                ) : (
+                  <Tab value={2} disabled icon={<Icon>store_front</Icon>} />
+                )}
               </Tabs>
             </Box>
             <Box
@@ -95,7 +122,7 @@ const Wrapper: React.FC = ({ children }) => {
                 variant="subtitle1"
                 startIcon={<CoinSvgIcon />}
               >
-                3000
+                {3000}
               </IconTypography>
             </Box>
 
@@ -106,7 +133,7 @@ const Wrapper: React.FC = ({ children }) => {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <Icon>account_circle</Icon>
+                <Icon>menu</Icon>
               </IconButton>
               <Menu
                 id="menu-appbar"

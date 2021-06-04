@@ -21,7 +21,10 @@ import { Link as RouterLink } from "react-router-dom";
 import brands from "../../rawData/brands.json";
 import users from "../../rawData/users.json";
 import { signinAction } from "../../redux/actions";
-import { BaseUser, UserTypes } from "../../redux/models/User";
+import { BrandUser, User, UserTypes } from "../../redux/models/User";
+
+const firstBrandUser = brands[0] as BrandUser;
+const firstUser = users[0] as User;
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -46,9 +49,9 @@ export default function Signn() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [payload, setPayload] = useState<BaseUser>({
-    ...users[0],
-    role: UserTypes.User,
+  const [payload, setPayload] = useState<User | BrandUser>({
+    ...firstBrandUser,
+    role: UserTypes.Brand,
   });
 
   const handleSignin = (event: any) => {
@@ -60,9 +63,9 @@ export default function Signn() {
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.target.value;
     if (val === UserTypes.Brand) {
-      setPayload({ ...brands[0], role: UserTypes.Brand });
+      setPayload({ ...firstBrandUser, role: UserTypes.Brand });
     } else {
-      setPayload({ ...users[0], role: UserTypes.User });
+      setPayload({ ...firstUser, role: UserTypes.User });
     }
   };
 
@@ -87,12 +90,12 @@ export default function Signn() {
             <FormControlLabel
               value={UserTypes.Brand}
               control={<Radio />}
-              label="As Brand"
+              label={`As Brand (${firstBrandUser.name})`}
             />
             <FormControlLabel
               value={UserTypes.User}
               control={<Radio />}
-              label="As User"
+              label={`As User (${firstUser.firstName})`}
             />
           </RadioGroup>
         </FormControl>
@@ -138,11 +141,6 @@ export default function Signn() {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
               <Link component={RouterLink} to="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}

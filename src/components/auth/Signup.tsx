@@ -103,10 +103,10 @@ export default function Signup() {
       payload = {
         ...payload,
         role: UserTypes.Brand,
-        brandName: event?.target?.elements.brandName.value,
+        name: event?.target?.elements.brandName.value,
         brandSymbol: event?.target?.elements.brandSymbol.value,
         maxPoints: parseInt(event?.target?.elements.maxPoints.value),
-        brandLogo: logo,
+        avatar: logo,
       };
     }
 
@@ -239,7 +239,7 @@ export default function Signup() {
                       required
                       fullWidth
                       type="number"
-                      InputProps={{ inputProps: { min: 0, max: 500 } }}
+                      InputProps={{ inputProps: { min: 0, max: 5000 } }}
                       id="maxPoints"
                       label="Max Loyalty points"
                       name="maxPoints"
