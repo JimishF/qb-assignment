@@ -4,7 +4,7 @@ services:
         container_name: qb-app
         build: ./ 
         ports:
-            - "8000:80"
+            - "8080:8080"
         labels:
             NAME: "qb-app"
         networks:
