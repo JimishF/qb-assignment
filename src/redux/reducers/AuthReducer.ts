@@ -21,6 +21,13 @@ export const authReducer = createReducer<AuthState, ActionsType>(
       ...action.payload
     }
 
+    if (user.role === UserTypes.Brand) {
+      user.followers = fakeUsers.map(u => ({
+        ...u,
+        role: UserTypes.User,
+        credits: Math.floor(Math.random() * user.maxPoints || 100)
+      }));
+    }
     return ({
       ...state,
       user,

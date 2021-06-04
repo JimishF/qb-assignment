@@ -4,19 +4,24 @@ import {
   Checkbox,
   Container,
   CssBaseline,
+  FormControl,
   FormControlLabel,
   Grid,
   Icon,
   Link,
+  Radio,
+  RadioGroup,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
+import brands from "../../rawData/brands.json";
+import users from "../../rawData/users.json";
 import { signinAction } from "../../redux/actions";
-import { UserTypes } from "../../redux/models/User";
-
+import { BaseUser, UserTypes } from "../../redux/models/User";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -29,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -40,19 +45,27 @@ const useStyles = makeStyles((theme) => ({
 export default function Signn() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const [payload, setPayload] = useState<BaseUser>({
+    ...users[0],
+    role: UserTypes.User,
+  });
+
   const handleSignin = (event: any) => {
     event?.stopPropagation();
     event?.preventDefault();
-    const email = event?.target?.elements.email.value;
-    const password = event?.target?.elements.password.value;
-    dispatch(
-      signinAction({
-        email,
-        password,
-        role: UserTypes.User,
-      })
-    );
+    dispatch(signinAction(payload));
   };
+
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
+    if (val === UserTypes.Brand) {
+      setPayload({ ...brands[0], role: UserTypes.Brand });
+    } else {
+      setPayload({ ...users[0], role: UserTypes.User });
+    }
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -63,13 +76,36 @@ export default function Signn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        <FormControl component="fieldset">
+          <RadioGroup
+            aria-label="loginAs"
+            name="loginAs"
+            row
+            value={payload.role}
+            onChange={handleRadioChange}
+          >
+            <FormControlLabel
+              value={UserTypes.Brand}
+              control={<Radio />}
+              label="As Brand"
+            />
+            <FormControlLabel
+              value={UserTypes.User}
+              control={<Radio />}
+              label="As User"
+            />
+          </RadioGroup>
+        </FormControl>
+
         <form className={classes.form} onSubmit={handleSignin} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
+            disabled
+            required
             id="email"
+            value="email@example.com"
             label="Email Address"
             name="email"
             autoComplete="email"
@@ -78,12 +114,14 @@ export default function Signn() {
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
+            required
+            disabled
             name="password"
             label="Password"
             type="password"
             id="password"
+            value="email@example.com"
             autoComplete="current-password"
           />
           <FormControlLabel
